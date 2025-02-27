@@ -3,6 +3,7 @@
 ***1.1. Explore data***
 
 ***1.2. Tạo bảng thống kê đơn hủy***
+
 ![image](https://github.com/user-attachments/assets/5631a1e9-36fa-4623-bb41-3c9defa68160)
 
 *=> Số lượng đơn bị hủy là 9288*
@@ -15,6 +16,7 @@ print('Percent of orders cancelled: {}/{} ({:.2f}%) '.format(c1, c2, c1/c2*100))
 ```
 *Number of cancelled transactions:  9288*
 *Percent of orders cancelled: 9288/541909 (1.71%)*
+
 ***1.3. Clean data, tạo df_Transaction***
 # **2. TÍNH RFM**
 ***2.1. Tính RFM***
@@ -83,6 +85,7 @@ print(df_describe)
 ![image](https://github.com/user-attachments/assets/bbe15893-eafd-4d4d-951e-3d3cbae5e7f8)
 
 ***4.2. Treemap***
+
 *Treemap cho Phân Khúc Khách Hàng*
 ![image](https://github.com/user-attachments/assets/5ec6066b-b81e-4773-a1fc-9616b4b45944)
 
@@ -90,6 +93,7 @@ print(df_describe)
 ![image](https://github.com/user-attachments/assets/de8ab72f-12a0-4cd3-a410-2c132ec23807)
 
 ***4.3. Scatter plots***
+
 ![image](https://github.com/user-attachments/assets/ae887a04-d378-48a3-8123-ed9320b7822c)
 
 ![image](https://github.com/user-attachments/assets/c6c0089a-1352-45ac-a26a-49dcc62fda22)
