@@ -60,7 +60,7 @@ Mention how many tables are in the dataset.
 | InvoiceNo  | object      | Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'C', it indicates a cancellation. |  
 | StockCode        | object     | Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product. |
 | Description    | object     | Product (item) name. Nominal. |  
-| Quantity | int | gshsh |
+| Quantity | int | The quantities of each product (item) per transaction. Numeric. |
 | InvoiceDate       | object   | Invoice Date and time. Numeric, the day and time when each transaction was generated. |  
 | UnitPrice | float | Unit price. Numeric, Product price per unit in sterling. |
 | CustomerID | flotat| Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer. |
@@ -283,41 +283,8 @@ print(df_describe)
 ```
 ![image](https://github.com/user-attachments/assets/f5cb947d-934f-40ac-a0ec-fb456f93eb66)
 
-4️⃣ Power BI Visualization  (applicable for PBI Projects)
+4️⃣ Visualization
 
----
-
-## 📊 Key Insights & Visualizations  
-
-## 🔎 Final Conclusion & Recommendations  
-
-| Phân đoạn               | Đặc điểm                                                                                   | Khuyến nghị                                                                                          |
-|-------------------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| **Champions**           | Mua gần đây, mua thường xuyên và chi tiêu nhiều nhất                                    | Tặng quà, tặng các chương trình ưu đãi. Dùng thử sản phẩm mới miễn phí. Khuyến khích họ quảng bá thương hiệu. |
-| **Loyal**               | Chi tiêu khá nhiều và mua thường xuyên. Phản hồi tốt với các chương trình khuyến mãi.     | Đề xuất các sản phẩm giá trị cao hơn. Thu thập đánh giá về sản phầm. Kết nối với họ thường xuyên.                 |
-| **Potential Loyalist**  | Khách hàng mới, mua nhiều và mua hơn một lần.                                             | Đưa ra các chương trình thành viên/khách hàng trung thành, giới thiệu sản phẩm khác.                   |
-| **New Customers**       | Vừa mới mua, nhưng không thường xuyên.                                                    | Cung cấp hỗ trợ ban đầu, giúp họ mua hàng thành công ngay từ lần đầu.               |
-| **Promising**           | Người mua gần đây, nhưng chưa chi nhiều.                                             | Xây dựng nhận diện thương hiệu, cung cấp các bản dùng thử miễn phí.                                  |
-| **Need Attention**      | Giá trị Recency, Frequency và Monetary trên trung bình, nhưng chưa mua thường xuyên.      | Đưa ra các ưu đãi có thời hạn dựa trên lịch sử mua hàng trước đây. Khuyến khích khách hàng mua hàng trở lại       |
-| **About to Sleep**      | Giá trị Recency, Frequency và Monetary dưới trung bình, có thể sẽ mất nếu không kích hoạt. | Giới thiệu sản phẩm phổ biến hoặc ưu đãi giảm giá. Kết nối lại với họ.   |
-| **At Risk**             | Chi tiêu nhiều và mua hàng thường xuyên, nhưng đã lâu không mua.                         | Gửi email, zalo OA,... cá nhân hóa để tái kết nối, đề nghị gia hạn.                    |
-| **Cannot Lose Them**    | Đã mua với số lượng lớn và thường xuyên, nhưng lâu rồi không quay lại.                    | Thu hút lại bằng các sản phẩm mới hoặc gia hạn, không để mất khách hàng vào tay đối thủ.                     |
-| **Hibernating customers** | Mua hàng đã lâu, ít chi tiêu và ít đơn hàng.                                           | Đề nghị các sản phẩm phù hợp khác và ưu đãi đặc biệt. Xây dựng lại giá trị thương hiệu.             |
-| **Lost customers**      | Giá trị Recency, Frequency và Monetary thấp nhất.                                        | Khơi gợi sự quan tâm lại bằng các chiến dịch tiếp cận, nếu không có thể bỏ qua.                     |
-
-
-👉🏻 Based on the insights and findings above, we would recommend the [stakeholder team] to consider the following:  
-
-📌 Key Takeaways:  
-✔️ Recommendation 1  
-✔️ Recommendation 2  
-✔️ Recommendation 3
-
-
-
-
-
-# **4. Visualization**
 ***4.1. Histogram distribution***
 ![image](https://github.com/user-attachments/assets/cc9f48fc-d5a4-4658-ba9f-532934804a53)
 
@@ -338,3 +305,25 @@ print(df_describe)
 ![image](https://github.com/user-attachments/assets/ae887a04-d378-48a3-8123-ed9320b7822c)
 
 ![image](https://github.com/user-attachments/assets/c6c0089a-1352-45ac-a26a-49dcc62fda22)
+
+---
+
+## 🔎 Final Conclusion & Recommendations  
+
+| Phân đoạn               | Đặc điểm                                                                                   | Khuyến nghị                                                                                          |
+|-------------------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| **Champions**           | Mua gần đây, mua thường xuyên và chi tiêu nhiều nhất                                    | Tặng quà, tặng các chương trình ưu đãi. Dùng thử sản phẩm mới miễn phí. Khuyến khích họ quảng bá thương hiệu. |
+| **Loyal**               | Chi tiêu khá nhiều và mua thường xuyên. Phản hồi tốt với các chương trình khuyến mãi.     | Đề xuất các sản phẩm giá trị cao hơn. Thu thập đánh giá về sản phầm. Kết nối với họ thường xuyên.                 |
+| **Potential Loyalist**  | Khách hàng mới, mua nhiều và mua hơn một lần.                                             | Đưa ra các chương trình thành viên/khách hàng trung thành, giới thiệu sản phẩm khác.                   |
+| **New Customers**       | Vừa mới mua, nhưng không thường xuyên.                                                    | Cung cấp hỗ trợ ban đầu, giúp họ mua hàng thành công ngay từ lần đầu.               |
+| **Promising**           | Người mua gần đây, nhưng chưa chi nhiều.                                             | Xây dựng nhận diện thương hiệu, cung cấp các bản dùng thử miễn phí.                                  |
+| **Need Attention**      | Giá trị Recency, Frequency và Monetary trên trung bình, nhưng chưa mua thường xuyên.      | Đưa ra các ưu đãi có thời hạn dựa trên lịch sử mua hàng trước đây. Khuyến khích khách hàng mua hàng trở lại       |
+| **About to Sleep**      | Giá trị Recency, Frequency và Monetary dưới trung bình, có thể sẽ mất nếu không kích hoạt. | Giới thiệu sản phẩm phổ biến hoặc ưu đãi giảm giá. Kết nối lại với họ.   |
+| **At Risk**             | Chi tiêu nhiều và mua hàng thường xuyên, nhưng đã lâu không mua.                         | Gửi email, zalo OA,... cá nhân hóa để tái kết nối, đề nghị gia hạn.                    |
+| **Cannot Lose Them**    | Đã mua với số lượng lớn và thường xuyên, nhưng lâu rồi không quay lại.                    | Thu hút lại bằng các sản phẩm mới hoặc gia hạn, không để mất khách hàng vào tay đối thủ.                     |
+| **Hibernating customers** | Mua hàng đã lâu, ít chi tiêu và ít đơn hàng.                                           | Đề nghị các sản phẩm phù hợp khác và ưu đãi đặc biệt. Xây dựng lại giá trị thương hiệu.             |
+| **Lost customers**      | Giá trị Recency, Frequency và Monetary thấp nhất.                                        | Khơi gợi sự quan tâm lại bằng các chiến dịch tiếp cận, nếu không có thể bỏ qua.                     |
+
+
+
+
