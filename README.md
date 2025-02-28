@@ -310,20 +310,19 @@ print(df_describe)
 
 ## 📊 Key Insights & Visualizations
 
-| Phân đoạn               | Đặc điểm                                                                                   | Khuyến nghị                                                                                          |
-|-------------------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| **Champions**           | Mua gần đây, mua thường xuyên và chi tiêu nhiều nhất                                    | Tặng quà, tặng các chương trình ưu đãi. Dùng thử sản phẩm mới miễn phí. Khuyến khích họ quảng bá thương hiệu. |
-| **Loyal**               | Chi tiêu khá nhiều và mua thường xuyên. Phản hồi tốt với các chương trình khuyến mãi.     | Đề xuất các sản phẩm giá trị cao hơn. Thu thập đánh giá về sản phầm. Kết nối với họ thường xuyên.                 |
-| **Potential Loyalist**  | Khách hàng mới, mua nhiều và mua hơn một lần.                                             | Đưa ra các chương trình thành viên/khách hàng trung thành, giới thiệu sản phẩm khác.                   |
-| **New Customers**       | Vừa mới mua, nhưng không thường xuyên.                                                    | Cung cấp hỗ trợ ban đầu, giúp họ mua hàng thành công ngay từ lần đầu.               |
-| **Promising**           | Người mua gần đây, nhưng chưa chi nhiều.                                             | Xây dựng nhận diện thương hiệu, cung cấp các bản dùng thử miễn phí.                                  |
-| **Need Attention**      | Giá trị Recency, Frequency và Monetary trên trung bình, nhưng chưa mua thường xuyên.      | Đưa ra các ưu đãi có thời hạn dựa trên lịch sử mua hàng trước đây. Khuyến khích khách hàng mua hàng trở lại       |
-| **About to Sleep**      | Giá trị Recency, Frequency và Monetary dưới trung bình, có thể sẽ mất nếu không kích hoạt. | Giới thiệu sản phẩm phổ biến hoặc ưu đãi giảm giá. Kết nối lại với họ.   |
-| **At Risk**             | Chi tiêu nhiều và mua hàng thường xuyên, nhưng đã lâu không mua.                         | Gửi email, zalo OA,... cá nhân hóa để tái kết nối, đề nghị gia hạn.                    |
-| **Cannot Lose Them**    | Đã mua với số lượng lớn và thường xuyên, nhưng lâu rồi không quay lại.                    | Thu hút lại bằng các sản phẩm mới hoặc gia hạn, không để mất khách hàng vào tay đối thủ.                     |
-| **Hibernating customers** | Mua hàng đã lâu, ít chi tiêu và ít đơn hàng.                                           | Đề nghị các sản phẩm phù hợp khác và ưu đãi đặc biệt. Xây dựng lại giá trị thương hiệu.             |
-| **Lost customers**      | Giá trị Recency, Frequency và Monetary thấp nhất.                                        | Khơi gợi sự quan tâm lại bằng các chiến dịch tiếp cận, nếu không có thể bỏ qua.                     |
-
+| **Segment**             | **Characteristics**                                                                           | **Recommendations**                                                                                     |
+|-------------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Champions**           | Recently purchased, frequent buyers, and highest spenders.                               | Offer gifts, special promotions, and free trials of new products. Encourage them to promote the brand. |
+| **Loyal**               | Spend significantly and purchase frequently. Respond well to promotions.                  | Recommend higher-value products. Collect product reviews. Maintain regular engagement.                 |
+| **Potential Loyalist**  | New customers who have made multiple purchases.                                          | Introduce loyalty programs or memberships and suggest other relevant products.                         |
+| **New Customers**       | Recently made a purchase but not frequently.                                             | Provide initial support to ensure a smooth first-time shopping experience.                             |
+| **Promising**           | Recently made a purchase but with low spending.                                          | Build brand awareness and offer free trials.                                                           |
+| **Need Attention**      | Recency, Frequency, and Monetary (RFM) values are above average but not consistent.      | Provide time-limited offers based on past purchases. Encourage repeat purchases.                       |
+| **About to Sleep**      | Below-average RFM values, at risk of becoming inactive.                                  | Recommend popular products or special discounts. Reconnect with them.                                  |
+| **At Risk**             | Previously spent a lot and purchased frequently but haven’t bought in a while.          | Send personalized emails, messages, or promotions to re-engage them.                                   |
+| **Cannot Lose Them**    | Used to make large and frequent purchases but have not returned for a long time.        | Re-attract them with new product offerings or renewal options to prevent losing them to competitors.    |
+| **Hibernating Customers** | Haven't purchased in a long time, low spending, and few orders.                      | Suggest relevant products with special offers. Reinforce brand value.                                  |
+| **Lost Customers**      | Lowest RFM values, least engaged customers.                                             | Attempt re-engagement campaigns, but consider deprioritizing if they remain inactive.                  |
 ---
 
 ## 🔎 Final Conclusion & Recommendations  
