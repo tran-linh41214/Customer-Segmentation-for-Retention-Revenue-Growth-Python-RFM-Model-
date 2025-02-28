@@ -57,13 +57,14 @@ Mention how many tables are in the dataset.
 
 | Column Name | Data Type | Description |  
 |-------------|----------|-------------|  
-| InvoiceNo  | INT      | Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'C', it indicates a cancellation. |  
-| StockCode        | TEXT     | Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product. |  
-| Description    | TEXT     | Product (item) name. Nominal. |  
-| InvoiceDate       | FLOAT    | Invoice Date and time. Numeric, the day and time when each transaction was generated. |  
-| UnitPrice | hfshf | Unit price. Numeric, Product price per unit in sterling. |
-| CustomerID | dhh | Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer. |
-| Country | gssdh | Country name. Nominal, the name of the country where each customer resides. |
+| InvoiceNo  | object      | Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'C', it indicates a cancellation. |  
+| StockCode        | object     | Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product. |
+| Description    | object     | Product (item) name. Nominal. |  
+| Quantity | int | gshsh |
+| InvoiceDate       | object   | Invoice Date and time. Numeric, the day and time when each transaction was generated. |  
+| UnitPrice | float | Unit price. Numeric, Product price per unit in sterling. |
+| CustomerID | flotat| Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer. |
+| Country | object | Country name. Nominal, the name of the country where each customer resides. |
 
 
 ---
@@ -84,18 +85,70 @@ Mention how many tables are in the dataset.
 
 ## ⚒️ Main Process
 
-1️⃣ Data Cleaning & Preprocessing  
-
-2️⃣ Exploratory Data Analysis (EDA) 
+1️⃣ Exploratory Data Analysis (EDA) 
 
 ***1.1. Explore data***
+```python
+data.info()
+     
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 541909 entries, 0 to 541908
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   InvoiceNo    541909 non-null  object 
+ 1   StockCode    541909 non-null  object 
+ 2   Description  540455 non-null  object 
+ 3   Quantity     541909 non-null  int64  
+ 4   InvoiceDate  541909 non-null  object 
+ 5   UnitPrice    541909 non-null  float64
+ 6   CustomerID   406829 non-null  float64
+ 7   Country      541909 non-null  object 
+dtypes: float64(2), int64(1), object(5)
+memory usage: 33.1+ MB
+```
+- Decription nulls => remove column
+- Customer ID nulls => remove row
+- InvoiceDate => convert to Datetime type
+- CustomerID => convert to object type
 
-***1.2. Tạo bảng thống kê đơn hủy***
+```python
+print('DataFrame dimension: ', data.shape)
+     
+DataFrame dimension:  (541909, 8)
+
+print(data.describe())
+     
+            Quantity      UnitPrice     CustomerID
+count  541909.000000  541909.000000  406829.000000
+mean        9.552250       4.611114   15287.690570
+std       218.081158      96.759853    1713.600303
+min    -80995.000000  -11062.060000   12346.000000
+25%         1.000000       1.250000   13953.000000
+50%         3.000000       2.080000   15152.000000
+75%        10.000000       4.130000   16791.000000
+max     80995.000000   38970.000000   18287.000000
+```
+
+- Quantity < 0 => cancellation => remove in df calculate RMF, keep in df data to get insight
+- Quantity too big => remove
+- UnitPrice < 0 => remove
+
+***1.2. Create a canceled orders table.***
+
+```python
+# Invoice chứa ký tự C ở đầu là những giao dịch bị hủy
+cancelled = data['InvoiceNo'].astype(str).str.contains('C')
+# Gán giá trị 0 với đơn không hủy, 1 với đơn hủy
+cancelled.fillna(0, inplace=True)
+cancelled = cancelled.astype(int)
+cancelled.value_counts()
+```
 
 ![image](https://github.com/user-attachments/assets/5631a1e9-36fa-4623-bb41-3c9defa68160)
 
-*=> Số lượng đơn bị hủy là 9288*
-*Tính Số lượng giao dịch bị hủy và tỷ lệ phần trăm*
+*=> Number of canceled orders: 9288*
+*Calculate number of cancelled transactions and percentage:*
 ```python
 c1 = data['order_cancelled'].value_counts()[1]
 c2 = data.shape[0]
@@ -106,6 +159,86 @@ print('Percent of orders cancelled: {}/{} ({:.2f}%) '.format(c1, c2, c1/c2*100))
 *Percent of orders cancelled: 9288/541909 (1.71%)*
 
 ***1.3. Clean data, tạo df_Transaction***
+
+1.3. Clean data, tạo df_Transaction
+
+```python
+# Tạo một bản sao của df 'data'
+df_Transaction = data.copy()
+
+# Xóa các giao dịch bị hủy
+df_Transaction = df_Transaction[df_Transaction['order_cancelled'] == 0]
+
+# Bỏ cột Description
+df_Transaction = df_Transaction.drop(columns=['Description'])
+
+# Loại bỏ các dòng thiếu CustomerID
+df_Transaction = df_Transaction.dropna(subset=['CustomerID'])
+
+# Kiểm tra dupicates
+print('Duplicate entries: {}'.format(df_Transaction.duplicated().sum()))
+print('{}% rows are duplicate.'.format(round((df_Transaction.duplicated().sum()/df_Transaction.shape[0])*100),2))
+
+# Bỏ duplicate data
+df_Transaction.drop_duplicates(inplace = True)
+
+# Đổi kiểu dữ liệu cho CustomerID và InvoiceDate
+df_Transaction['CustomerID'] = df_Transaction['CustomerID'].astype(str)  # Chuyển CustomerID sang kiểu object
+data['InvoiceDate'] = pd.to_datetime(data['InvoiceDate'], format='%d/%m/%Y %H:%M') #Chuyển InvoiceDate sang datetime
+
+# Xóa UnitPrice và Quantity âm
+df_Transaction = df_Transaction[(df_Transaction['UnitPrice'] > 0) & (df_Transaction['Quantity'] > 0)]
+
+# Kiểm tra kết quả EDA
+print(df_Transaction.head())
+print(df_Transaction.describe())
+print(df_Transaction.dtypes)
+     
+Duplicate entries: 5194
+1% rows are duplicate.
+  InvoiceNo StockCode  Quantity         InvoiceDate  UnitPrice CustomerID  \
+0    536365    85123A         6 2010-12-01 08:26:00       2.55    17850.0   
+1    536365     71053         6 2010-12-01 08:26:00       3.39    17850.0   
+2    536365    84406B         8 2010-12-01 08:26:00       2.75    17850.0   
+3    536365    84029G         6 2010-12-01 08:26:00       3.39    17850.0   
+4    536365    84029E         6 2010-12-01 08:26:00       3.39    17850.0   
+
+          Country  order_cancelled  
+0  United Kingdom                0  
+1  United Kingdom                0  
+2  United Kingdom                0  
+3  United Kingdom                0  
+4  United Kingdom                0  
+            Quantity                    InvoiceDate      UnitPrice  \
+count  392690.000000                         392690  392690.000000   
+mean       13.118997  2011-07-10 19:12:51.826224128       3.125913   
+min         1.000000            2010-12-01 08:26:00       0.001000   
+25%         2.000000            2011-04-07 11:12:00       1.250000   
+50%         6.000000            2011-07-31 12:02:00       1.950000   
+75%        12.000000            2011-10-20 12:53:00       3.750000   
+max     80995.000000            2011-12-09 12:50:00    8142.750000   
+std       180.492710                            NaN      22.241892   
+
+       order_cancelled  
+count         392690.0  
+mean               0.0  
+min                0.0  
+25%                0.0  
+50%                0.0  
+75%                0.0  
+max                0.0  
+std                0.0  
+InvoiceNo                  object
+StockCode                  object
+Quantity                    int64
+InvoiceDate        datetime64[ns]
+UnitPrice                 float64
+CustomerID                 object
+Country                    object
+order_cancelled             int64
+dtype: object
+```
+
 3️⃣ Python Analysis 
 # **2. TÍNH RFM**
 ***2.1. Tính RFM***
