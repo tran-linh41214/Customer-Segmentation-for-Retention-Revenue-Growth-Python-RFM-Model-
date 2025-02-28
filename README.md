@@ -45,9 +45,9 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 ## 📂 Dataset Description & Data Structure  
 
 ### 📌 Data Source  
-- Source: (Mention where the dataset is obtained from—Kaggle, company database, government sources, etc.)  
-- Size: (Mention the number of rows & columns)  
-- Format: (.csv, .sql, .xlsx, etc.)  
+- Source: Company database  
+- Size: 8 columns, 541909 rows 
+- Format: .csv  
 
 ### 📊 Data Structure & Relationships  
 
