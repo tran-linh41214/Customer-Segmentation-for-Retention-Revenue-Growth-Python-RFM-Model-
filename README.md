@@ -1,24 +1,29 @@
+
+![banner rfm](https://github.com/user-attachments/assets/04e4c230-5608-4dff-ad47-0ebf3b8b9624)
+
+
 # Python_RFM_project
 # 📊 Project Title: [RFM Segmentation]  
 Author: [Linh Tran]    
-Tools Used: Python  
+Tools Used: Python 
 
 ---
 
 ## 📑 Table of Contents  
 1. [📌 Background & Overview](#-background--overview)  
 2. [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)  
-3. [🧠 Design Thinking Process](#-design-thinking-process)  
-4. [📊 Key Insights & Visualizations](#-key-insights--visualizations)  
-5. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
+3. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
 
 ---
 
 ## 📌 Background & Overview  
 
 ### Objective:
+### 📖 What is this project about? 
+ 
 - A Python-based solution for customer segmentation using the RFM (Recency, Frequency, Monetary) model.
 - Objective: Automate RFM analysis to identify high-value customers, improve retention strategies, and personalize marketing campaigns efficiently.
+
 
 ### 👤 Who is this project for?  
 
@@ -26,9 +31,10 @@ Tools Used: Python
 ✔️ **Data analysts & business analysts**  
 ✔️ **E-commerce managers**  
 ✔️ **CRM & customer success teams**  
-✔️ **Decision-makers & stakeholders**
+✔️ **Decision-makers & stakeholders**  
 
-###  ❓ **Business Questions:**  
+###  ❓Business Questions:  
+
 
 ✔️ Identify loyal customers and potential high-value customers.  
 ✔️ Segment customers based on purchasing behavior to personalize marketing campaigns.  
@@ -45,15 +51,16 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 ## 📂 Dataset Description & Data Structure  
 
 ### 📌 Data Source  
+
 - Source: Company database  
 - Size: 8 columns, 541909 rows 
-- Format: .csv  
+- Format: .csv
 
 ### 📊 Data Structure & Relationships  
 
-#### 1️⃣ Tables Used:  
-Mention how many tables are in the dataset.    
+**This project used 2 tables:**
 
+**Table 1: Transactions table:**
 
 | Column Name | Data Type | Description |  
 |-------------|----------|-------------|  
@@ -67,25 +74,19 @@ Mention how many tables are in the dataset.
 | Country | object | Country name. Nominal, the name of the country where each customer resides. |
 
 
----
+**Table 2: Segmentation table:**
 
-## 🧠 Design Thinking Process  
-
-1️⃣ *Empathize* – Gathered insights into customer behavior and challenges faced by the marketing team in segmenting large datasets manually.
-
-2️⃣ *Define Point of View* – Identified the core problem: the need for an automated and scalable segmentation solution to enhance targeted marketing efforts.
-
-3️⃣ *Ideate* – Explored different methodologies, ultimately selecting the RFM model as the most suitable approach for customer segmentation.
-
-4️⃣ *Prototype and Review* – Developed a Python-based implementation, tested the model on real data, and refined the approach based on feedback from the marketing team.  
-
-![image](https://github.com/user-attachments/assets/c7bf4f9a-5845-4a61-9e46-7e25d32064b4)
+| Column Name | Data Type | Description |  
+|-------------|----------|-------------| 
+| Segment      | object   | Customer Segmentation Category    |
+| RFM Score    | string   | RFM Score assigned to each segment |
 
 ---
 
 ## ⚒️ Main Process
 
-1️⃣ Exploratory Data Analysis (EDA) 
+1️⃣  Exploratory Data Analysis (EDA)   
+
 
 ***1.1. Explore data***
 ```python
@@ -238,8 +239,8 @@ Country                    object
 order_cancelled             int64
 dtype: object
 ```
+2️⃣ SQL/ Python Analysis 
 
-3️⃣ Python Analysis 
 # **2. TÍNH RFM**
 ***2.1. Tính RFM***
 ```python
@@ -283,32 +284,6 @@ print(df_describe)
 ```
 ![image](https://github.com/user-attachments/assets/f5cb947d-934f-40ac-a0ec-fb456f93eb66)
 
-4️⃣ Visualization
-
-***4.1. Histogram distribution***
-![image](https://github.com/user-attachments/assets/cc9f48fc-d5a4-4658-ba9f-532934804a53)
-
-![image](https://github.com/user-attachments/assets/dc357274-95c3-4935-a8bf-12ba6a64024b)
-
-![image](https://github.com/user-attachments/assets/bbe15893-eafd-4d4d-951e-3d3cbae5e7f8)
-
-***4.2. Treemap***
-
-*Treemap cho Phân Khúc Khách Hàng*
-![image](https://github.com/user-attachments/assets/5ec6066b-b81e-4773-a1fc-9616b4b45944)
-
-*Treemap cho Tổng Doanh Thu*
-![image](https://github.com/user-attachments/assets/de8ab72f-12a0-4cd3-a410-2c132ec23807)
-
-***4.3. Scatter plots***
-
-![image](https://github.com/user-attachments/assets/ae887a04-d378-48a3-8123-ed9320b7822c)
-
-![image](https://github.com/user-attachments/assets/c6c0089a-1352-45ac-a26a-49dcc62fda22)
-
----
-
-## 📊 Key Insights & Visualizations
 
 | **Segment**             | **Characteristics**                                                                           | **Recommendations**                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
@@ -398,4 +373,4 @@ print(df_describe)
 Focusing on Frequency in the retail sector fosters loyal customer relationships, improves operational efficiencies, and enhances the customer experience. This strategy helps develop a strong, engaged customer base that contributes to consistent revenue while promoting the brand through advocacy and community engagement.
 
 
-
+---
