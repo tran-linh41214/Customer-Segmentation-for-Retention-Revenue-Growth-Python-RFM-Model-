@@ -146,7 +146,10 @@ cancelled = cancelled.astype(int)
 cancelled.value_counts()
 ```
 
-![image](https://github.com/user-attachments/assets/5631a1e9-36fa-4623-bb41-3c9defa68160)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5631a1e9-36fa-4623-bb41-3c9defa68160" alt="image">
+</p>
+
 
 *=> Number of canceled orders: 9288*
 *Calculate number of cancelled transactions and percentage:*
@@ -254,7 +257,10 @@ df_rmf.rename(columns={'InvoiceDate': 'Recency',
 df_rmf.head()
 ```
 
-![image](https://github.com/user-attachments/assets/81fd94b8-4185-4028-bda5-9e956040046b)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/81fd94b8-4185-4028-bda5-9e956040046b" alt="image">
+</p>
+
 
 ***2.2. Tính RFM Score***
 ```python
@@ -269,7 +275,10 @@ df_rmf['RFM_Score'] = df_rmf['R_Score'].astype(str) + df_rmf['F_Score'].astype(s
 # Kết quả là DataFrame với các cột R_Score, F_Score, M_Score, và df_rmf_Score
 print(df_rmf[['CustomerID', 'Recency', 'Frequency', 'Monetary', 'RFM_Score']])
 ```
-![image](https://github.com/user-attachments/assets/db0f3f2b-6c63-4a93-a697-91f6d84d77c3)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/db0f3f2b-6c63-4a93-a697-91f6d84d77c3" alt="image">
+</p>
+
 
 # **3. Segmentation**
 ```python
@@ -282,7 +291,10 @@ df_describe['percent'] = df_describe['percent'].round(1)
 
 print(df_describe)
 ```
-![image](https://github.com/user-attachments/assets/f5cb947d-934f-40ac-a0ec-fb456f93eb66)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f5cb947d-934f-40ac-a0ec-fb456f93eb66" alt="image">
+</p>
 
 
 | **Segment**             | **Characteristics**                                                                           | **Recommendations**                                                                                     |
