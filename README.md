@@ -89,7 +89,26 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 
 
 ***1.1. Explore data***
-```python
+
+*Missing Data:
+-Removed null CustomerID rows.
+-Dropped Description column due to limited analytical value.
+
+*Data Cleaning:
+-Removed transactions with negative Quantity and UnitPrice.
+-Handled canceled transactions by filtering them out during RFM calculations.
+
+*Duplicate Entries:
+-5,194 duplicates (1% of data) were removed
+
+
+
+
+<details>
+  <summary>📌 Code</summary>
+
+  <details>
+ ```python
 data.info()
      
 <class 'pandas.core.frame.DataFrame'>
@@ -108,10 +127,20 @@ Data columns (total 8 columns):
 dtypes: float64(2), int64(1), object(5)
 memory usage: 33.1+ MB
 ```
+
+✅ The dataset contains 541909 rows and 8 columns. 
+
+✅ "Description" and "CustomerID" columns have 1454 and 135080 missing values respectively.
+
+✅ The data type of all variables are well defined.
+
 - Decription nulls => remove column
 - Customer ID nulls => remove row
 - InvoiceDate => convert to Datetime type
 - CustomerID => convert to object type
+
+  </details>
+
 
 ```python
 print('DataFrame dimension: ', data.shape)
