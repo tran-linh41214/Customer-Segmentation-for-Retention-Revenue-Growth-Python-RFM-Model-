@@ -367,23 +367,6 @@ print(df_segment_data)
   <img src="https://github.com/user-attachments/assets/f50c0866-f6d0-4308-bd63-8933caf2894e" alt="image">
 </p>
 
-**Customers share by Segment**
-
-<p align="center">
-  <img src="![image](https://github.com/user-attachments/assets/9c9582cb-633e-4635-b0dc-1cb397de7780)
-" alt="image">
-</p>
-
-**Sales share by Segment**  
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/fb5d3852-f3aa-4b2a-8c98-96d5b3046a11" alt="image">
-</p>
-
-**Average orders per customer by Segment**  
-
-
-
-
 | **Segment**             | **Characteristics**                                                                           | **Recommendations**                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
 | **Champions**           | Recently purchased, frequent buyers, and highest spenders.                               | Offer gifts, special promotions, and free trials of new products. Encourage them to promote the brand. |
@@ -397,6 +380,81 @@ print(df_segment_data)
 | **Cannot Lose Them**    | Used to make large and frequent purchases but have not returned for a long time.        | Re-attract them with new product offerings or renewal options to prevent losing them to competitors.    |
 | **Hibernating Customers** | Haven't purchased in a long time, low spending, and few orders.                      | Suggest relevant products with special offers. Reinforce brand value.                                  |
 | **Lost Customers**      | Lowest RFM values, least engaged customers.                                             | Attempt re-engagement campaigns, but consider deprioritizing if they remain inactive.                  |
+
+3️⃣ **Visualization**   
+**Customers share by Segment**  
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9c9582cb-633e-4635-b0dc-1cb397de7780" alt="image">
+</p>
+
+**Sales share by Segment**  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fb5d3852-f3aa-4b2a-8c98-96d5b3046a11" alt="image">
+</p>
+
+**Average orders per customer by Segment**  
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/72ae4976-63a8-42d9-b8c1-4b65ca607040" alt="image">
+</p>
+
+**Average sales per customer by Segment**  
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5faa69dd-1eca-4f39-8446-f4189b0842cf" alt="image">
+</p>  
+👉 More focus on:  
+- **Champions & Loyal Customers**: These segments place the **highest number of orders per customer**, proving their strong buying habits. Retaining them is **more cost-effective** than acquiring new customers.  
+-  **Potential Loyalists**: They purchase frequently but haven't yet reached Champions' level. Targeting them can increase customer lifetime value.  
+-  **At Risk & Lost Customers**: These customers used to contribute revenue but are now disengaged. Losing them permanently represents **lost potential revenue**.  
+-   **Hibernating Customers**: They represent a **large portion (18.49%)** of the customer base but **contribute very little to sales**.  
+
+
+📍 **Recency by Segment**  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/40b9d255-3758-435f-98e3-a6c6c8f95bcf" alt="image">
+</p>  
+
+
+📌 **Analysis:** 
+
+- **Champions**: Recently active, highly engaged. Maintain loyalty with VIP programs, early access to new products, and personalized thank-you emails.  
+- **At Risk**: Haven’t purchased in a while. Reactivate with reminder emails, time-limited discounts, and win-back campaigns highlighting past purchases.  
+- **Loyal**: Moderate recency, still engaged. Strengthen retention with exclusive deals, reward programs, and personalized product recommendations.  
+- **Hibernating Customers**: Long inactivity. Re-engage with reactivation emails, special comeback discounts, and surveys to understand why they left.  
+- **Lost Customers**: Extremely high recency. Try last-chance offers, nostalgic messaging about past purchases, and bundle deals to entice them back.  
+- **Potential Loyalists**: Recently active but inconsistent. Nurture with follow-up emails, personalized promotions, and incentives for repeat purchases.
+
+📍 **Frequency by Segment**
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ce9a6a3d-9352-442b-a4c9-9c919135802b" alt="image">
+</p>
+
+📌 **Analysis:**     
+
+- **Champions**: Most frequent buyers with high consistency. Reward them with VIP perks, early product access, and exclusive discounts to keep engagement strong.  
+- **At Risk**: Purchase frequency has declined. Reignite interest with targeted win-back campaigns, personalized recommendations, and time-sensitive promotions.  
+- **Loyal**: Consistently engaged but not as frequent as Champions. Strengthen ties through loyalty programs, referral incentives, and personalized emails.  
+- **Hibernating Customers**: Infrequent shoppers with long gaps between purchases. Use email reminders, re-engagement ads, and special "welcome back" deals.  
+- **Lost Customers**: Very low purchase frequency, nearly inactive. Send final attempt offers, nostalgia-driven messages, and exclusive reactivation discounts.  
+- **Potential Loyalists**: Show promising buying behavior but not yet fully committed. Encourage regular purchases with tailored incentives, follow-ups, and bundled deals.
+
+📍 **Monetary by Segment**  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e2f11d82-ae04-4a55-83b7-adb1adce1807" alt="image">
+</p>  
+
+### **Monetary Analysis & Strategies**  
+
+- **Champions**: Highest spending customers. Maintain exclusivity with VIP memberships, premium offerings, and early access to products.  
+- **At Risk**: Previously high spenders but declining engagement. Offer personalized discounts, limited-time promotions, and one-on-one consultations.  
+- **Loyal**: Consistent spenders but with room to grow. Upsell and cross-sell using tailored recommendations, subscription options, and exclusive bundles.  
+- **Hibernating Customers**: Low spending with sporadic engagement. Use budget-friendly offers, special reactivation discounts, and engaging reminders.  
+- **Lost Customers**: Minimal spending, nearly inactive. Last-chance deals, "win back" offers, and emotional storytelling may help revive interest.  
+- **Potential Loyalists**: Growing spending potential. Nurture them with personalized recommendations, milestone-based rewards, and targeted follow-ups.
 ---
 
 ## 🔎 Final Conclusion & Recommendations  
