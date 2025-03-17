@@ -207,9 +207,9 @@ data[(data['check_cancel'] == False) & (data['Quantity'] < 0)]['Description'].va
 => Orders with quantity < 0 that are not canceled are considered erroneous orders.
 
 **Handling abnormal data values**   
-➡️ Remove negative quantity values in df calculate RMF, keep in df data to get insight
-➡️ Remove excessively large quantity values
-➡️ UnitPrice < 0 => incorrect values => remove
+➡️ Remove negative quantity values in df calculate RMF, keep in df data to get insight  
+➡️ Remove excessively large quantity values  
+➡️ UnitPrice < 0 => incorrect values => remove  
 
 ***1.2. Create a canceled orders table.***
 
@@ -402,11 +402,14 @@ print(df_segment_data)
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5faa69dd-1eca-4f39-8446-f4189b0842cf" alt="image">
 </p>  
-👉 More focus on:  
-- **Champions & Loyal Customers**: These segments place the **highest number of orders per customer**, proving their strong buying habits. Retaining them is **more cost-effective** than acquiring new customers.  
--  **Potential Loyalists**: They purchase frequently but haven't yet reached Champions' level. Targeting them can increase customer lifetime value.  
--  **At Risk & Lost Customers**: These customers used to contribute revenue but are now disengaged. Losing them permanently represents **lost potential revenue**.  
--   **Hibernating Customers**: They represent a **large portion (18.49%)** of the customer base but **contribute very little to sales**.  
+
+👉 More focus on: 
+
+
+- **Champions & Loyal Customers**: These segments place the **highest number of orders per customer**, proving their strong buying habits. Retaining them is **more cost-effective** than acquiring new customers.    
+-  **Potential Loyalists**: They purchase frequently but haven't yet reached Champions' level. Targeting them can increase customer lifetime value.    
+-  **At Risk & Lost Customers**: These customers used to contribute revenue but are now disengaged. Losing them permanently represents **lost potential revenue**.    
+-   **Hibernating Customers**: They represent a **large portion (18.49%)** of the customer base but **contribute very little to sales**.    
 
 
 📍 **Recency by Segment**  
