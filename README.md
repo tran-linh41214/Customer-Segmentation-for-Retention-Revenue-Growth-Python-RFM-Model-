@@ -11,8 +11,9 @@ Tools Used: Python
 
 ## 📑 Table of Contents  
 1. [📌 Background & Overview](#-background--overview)  
-2. [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)  
-3. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
+2. [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)
+3. [⚒️ Main Process](#-main-process)
+4. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
 
 ---
 
@@ -24,6 +25,11 @@ Tools Used: Python
 - A Python-based solution for customer segmentation using the RFM (Recency, Frequency, Monetary) model.
 - Objective: Automate RFM analysis to identify high-value customers, improve retention strategies, and personalize marketing campaigns efficiently.
 
+ > What is RFM model?  
+**RFM (Recency – Frequency – Monetary)** is a part of **Marketing Analysis** used to assess **Customer Value**. It helps businesses segment their customer base into different groups, enabling targeted marketing campaigns and personalized customer care strategies. This analysis is conducted using the provided dataset.  
+- **Recency (R):** How recently a customer made a purchase.  
+- **Frequency (F):** How often a customer makes purchases.  
+- **Monetary (M):** The total spending amount of a customer.
 
 ### 👤 Who is this project for?  
 
@@ -36,15 +42,12 @@ Tools Used: Python
 ###  ❓Business Questions:  
 
 
-✔️ Identify loyal customers and potential high-value customers.  
-✔️ Segment customers based on purchasing behavior to personalize marketing campaigns.  
-✔️ Evaluate customer value (Customer Value) to optimize retention and engagement strategies.  
-✔️ Automate the customer segmentation process instead of manual Excel calculations.  
-✔️ Provide insightful reports to help the Marketing team implement targeted campaigns effectively.
+✔️ **Customer Segmentation for Marketing Campaigns**: How can the Marketing department classify customer segments effectively to deploy tailored marketing campaigns for Christmas and New Year, appreciating loyal customers and attracting potential ones?
+✔️ **Implementing RFM Model**: How can the RFM (Recency, Frequency, Monetary) model be utilized to analyze and segment customers to enhance the effectiveness of marketing campaigns?  
 
 ### 🎯Project Outcome:  
  
-In summary, focusing on Frequency in the retail sector can provide stability and growth by fostering loyal customer relationships, improving operational efficiencies, and enhancing the overall customer experience. This approach helps build a dedicated customer base that ensures consistent revenue while also encouraging brand advocacy and community engagement.  
+  
 
 ---
 
@@ -57,10 +60,11 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 - Format: .csv
 
 ### 📊 Data Structure & Relationships  
+<details>
+  <summary>📌 This project used 2 tables:</summary>
 
-**This project used 2 tables:**
-
-**Table 1: Transactions table:**
+  <details>
+  <summary>Table 1: Transactions table</summary>
 
 | Column Name | Data Type | Description |  
 |-------------|----------|-------------|  
@@ -73,13 +77,19 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 | CustomerID | flotat| Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer. |
 | Country | object | Country name. Nominal, the name of the country where each customer resides. |
 
+  </details>
 
-**Table 2: Segmentation table:**
+  <details>
+  <summary>Table 2: Segmentation table</summary>  
 
 | Column Name | Data Type | Description |  
 |-------------|----------|-------------| 
 | Segment      | object   | Customer Segmentation Category    |
 | RFM Score    | string   | RFM Score assigned to each segment |
+
+</details>
+</details> 
+
 
 ---
 
@@ -88,11 +98,6 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 1️⃣  Exploratory Data Analysis (EDA)   
 
 
-***1.1. Explore data***
-
-*Missing Data:
--Removed null CustomerID rows.
--Dropped Description column due to limited analytical value.
 
 *Data Cleaning:
 -Removed transactions with negative Quantity and UnitPrice.
@@ -101,45 +106,28 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 *Duplicate Entries:
 -5,194 duplicates (1% of data) were removed
 
-
-
-
-<details>
-  <summary>📌 Code</summary>
+***1.1. Explore data***
 
  
  ```python
 data.info()
-     
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 541909 entries, 0 to 541908
-Data columns (total 8 columns):
- #   Column       Non-Null Count   Dtype  
----  ------       --------------   -----  
- 0   InvoiceNo    541909 non-null  object 
- 1   StockCode    541909 non-null  object 
- 2   Description  540455 non-null  object 
- 3   Quantity     541909 non-null  int64  
- 4   InvoiceDate  541909 non-null  object 
- 5   UnitPrice    541909 non-null  float64
- 6   CustomerID   406829 non-null  float64
- 7   Country      541909 non-null  object 
-dtypes: float64(2), int64(1), object(5)
-memory usage: 33.1+ MB
+
 ```
+ 
+✅ The dataset contains 541909 rows and 8 columns.  
 
-✅ The dataset contains 541909 rows and 8 columns. 
+✅ "Description" and "CustomerID" columns have 1454 and 135080 missing values respectively.  
 
-✅ "Description" and "CustomerID" columns have 1454 and 135080 missing values respectively.
+✅ InvoiceDate and CustomerID are in wrong datatype.  
 
-✅ The data type of all variables are well defined.
+*Missing Data:  
+- Removed null CustomerID rows.  
+- Dropped Description column due to limited analytical value.  
 
-- Decription nulls => remove column
-- Customer ID nulls => remove row
-- InvoiceDate => convert to Datetime type
-- CustomerID => convert to object type
+*Data type:  
+- InvoiceDate => convert to Datetime type  
+- CustomerID => convert to object type  
 
-  </details>
 
 
 ```python
@@ -159,6 +147,15 @@ min    -80995.000000  -11062.060000   12346.000000
 75%        10.000000       4.130000   16791.000000
 max     80995.000000   38970.000000   18287.000000
 ```
+
+Detect why "Quantity" and "Price" have negative values (<0)
+
+```
+# subset dataframe để xem qua các rơw có giá trị âm 
+print('Dòng có Quantity âm (<0)')
+ecm[ecm['Quantity'] < 0]
+```
+
 
 - Quantity < 0 => cancellation => remove in df calculate RMF, keep in df data to get insight
 - Quantity too big => remove
