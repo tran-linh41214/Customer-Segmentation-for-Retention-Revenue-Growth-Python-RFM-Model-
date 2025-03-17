@@ -3,8 +3,8 @@
 
 
 # Python_RFM_project
-# 📊 Project Title: [RFM Segmentation]  
-Author: [Linh Tran]    
+# 📊 Project Title: Customer Segmentation for Retention & Revenue Growth | Python (RFM Model)  
+Author: Linh Tran    
 Tools Used: Python 
 
 ---
@@ -107,7 +107,7 @@ In summary, focusing on Frequency in the retail sector can provide stability and
 <details>
   <summary>📌 Code</summary>
 
-  <details>
+ 
  ```python
 data.info()
      
