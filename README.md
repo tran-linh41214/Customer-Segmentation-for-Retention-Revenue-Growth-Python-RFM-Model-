@@ -42,7 +42,7 @@ Tools Used: Python
 ###  ❓Business Questions:  
 
 
-✔️ **Customer Segmentation for Marketing Campaigns**: How can the Marketing department classify customer segments effectively to deploy tailored marketing campaigns for Christmas and New Year, appreciating loyal customers and attracting potential ones?
+✔️ **Customer Segmentation for Marketing Campaigns**: How can the Marketing department classify customer segments effectively to deploy tailored marketing campaigns for Christmas and New Year, appreciating loyal customers and attracting potential ones?  
 ✔️ **Implementing RFM Model**: How can the RFM (Recency, Frequency, Monetary) model be utilized to analyze and segment customers to enhance the effectiveness of marketing campaigns?  
 
 ### 🎯Project Outcome:  
@@ -108,25 +108,48 @@ Tools Used: Python
 
 ***1.1. Explore data***
 
+![image](https://github.com/user-attachments/assets/3e887836-596d-4696-8c21-1122de6b888c)
+
  
  ```python
 data.info()
 
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 541909 entries, 0 to 541908
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   InvoiceNo    541909 non-null  object 
+ 1   StockCode    541909 non-null  object 
+ 2   Description  540455 non-null  object 
+ 3   Quantity     541909 non-null  int64  
+ 4   InvoiceDate  541909 non-null  object 
+ 5   UnitPrice    541909 non-null  float64
+ 6   CustomerID   406829 non-null  float64
+ 7   Country      541909 non-null  object 
+dtypes: float64(2), int64(1), object(5)
+memory usage: 33.1+ MB
+
 ```
- 
-✅ The dataset contains 541909 rows and 8 columns.  
+
+
+
+![image](https://github.com/user-attachments/assets/84bea229-1db9-41cb-9b4e-f45c515d25ff)
+![image](https://github.com/user-attachments/assets/9a5d9b8a-6569-4cdc-a9da-e7ee6abbc43d)
+![image](https://github.com/user-attachments/assets/877b497a-53d8-402c-b5a7-6c8637a09709)
+  
 
 ✅ "Description" and "CustomerID" columns have 1454 and 135080 missing values respectively.  
 
 ✅ InvoiceDate and CustomerID are in wrong datatype.  
 
-*Missing Data:  
+➡️ Missing Data:  
 - Removed null CustomerID rows.  
 - Dropped Description column due to limited analytical value.  
 
-*Data type:  
+➡️ Data type:  
 - InvoiceDate => convert to Datetime type  
-- CustomerID => convert to object type  
+- CustomerID => convert to object type
 
 
 
@@ -151,22 +174,54 @@ max     80995.000000   38970.000000   18287.000000
 Detect why "Quantity" and "Price" have negative values (<0)
 
 ```
-# subset dataframe để xem qua các rơw có giá trị âm 
-print('Dòng có Quantity âm (<0)')
-ecm[ecm['Quantity'] < 0]
+# subset dataframe to indicate rows that have negative values 
+print('Row with negative Quantity (<0)')
+data[data['Quantity'] < 0]
+
 ```
 
+![image](https://github.com/user-attachments/assets/89ddb000-c1d1-4c05-946b-0e680d22043f)
 
-- Quantity < 0 => cancellation => remove in df calculate RMF, keep in df data to get insight
-- Quantity too big => remove
-- UnitPrice < 0 => remove
+```python
+# The symbol "C" in "InvoiceNo" indicates a canceled order. Check if a negative Quantity always corresponds to a canceled order.  
+# Create a column to check the cancellation status of the data.  
+data['InvoiceNo'] = data['InvoiceNo'].astype(str)
+data['check_cancel'] = data['InvoiceNo'].apply(lambda x: True if x[0] == 'C' else False)
+
+# Check if the reason for Quantity < 0 is due to order cancellation.
+data[(data['check_cancel'] == True) & (data['Quantity'] < 0)].sort_values('Quantity')
+data[(data['check_cancel'] == True) & (data['Quantity'] <= 0)].sort_values('Quantity')
+```
+
+![image](https://github.com/user-attachments/assets/5df3a5f7-a8f1-41d3-b603-d4de1f5c4bf6)
+
+```python
+# Check orders without "C" (canceled) that still have a negative quantity
+data[(data['check_cancel'] == False) & (data['Quantity'] < 0)].sort_values('Quantity')
+data[(data['check_cancel'] == False) & (data['Quantity'] <= 0)].sort_values('Quantity')
+
+data[(data['check_cancel'] == False) & (data['Quantity'] < 0)]['Description'].value_counts()
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c4a817d6-cf78-4f66-9190-6a8028fb2d6e" alt="Description">
+</p>  
+
+=> Orders with quantity < 0 that are not canceled are considered erroneous orders.
+
+**Handling abnormal data values**   
+➡️ Remove negative quantity values in df calculate RMF, keep in df data to get insight
+➡️ Remove excessively large quantity values
+➡️ UnitPrice < 0 => incorrect values => remove
 
 ***1.2. Create a canceled orders table.***
 
+*The project focuses on segmentation based only on successful orders, so I will analyze canceled orders separately.*
+
 ```python
-# Invoice chứa ký tự C ở đầu là những giao dịch bị hủy
+# Invoices with a "C" at the beginning are canceled transactions.
 cancelled = data['InvoiceNo'].astype(str).str.contains('C')
-# Gán giá trị 0 với đơn không hủy, 1 với đơn hủy
+# Assign 0 to non-canceled orders and 1 to canceled orders.
 cancelled.fillna(0, inplace=True)
 cancelled = cancelled.astype(int)
 cancelled.value_counts()
@@ -177,110 +232,88 @@ cancelled.value_counts()
 </p>
 
 
-*=> Number of canceled orders: 9288*
-*Calculate number of cancelled transactions and percentage:*
+*=> Number of canceled orders: 9288*  
+*Calculate number of cancelled transactions and percentage:*  
 ```python
 c1 = data['order_cancelled'].value_counts()[1]
 c2 = data.shape[0]
 print("Number of cancelled transactions: ", c1)
 print('Percent of orders cancelled: {}/{} ({:.2f}%) '.format(c1, c2, c1/c2*100))
-```
+```  
 *Number of cancelled transactions:  9288*
-*Percent of orders cancelled: 9288/541909 (1.71%)*
+*Percent of orders cancelled: 9288/541909 (1.71%)*  
+✅ The cancellation rate is relatively low, indicating a generally stable order fulfillment process.
 
-***1.3. Clean data, tạo df_Transaction***
+***1.3. Clean data, create df_Transaction***
 
-1.3. Clean data, tạo df_Transaction
 
 ```python
-# Tạo một bản sao của df 'data'
+# Create a copy of the 'data' dataframe
 df_Transaction = data.copy()
 
-# Xóa các giao dịch bị hủy
+# Remove canceled transactions
 df_Transaction = df_Transaction[df_Transaction['order_cancelled'] == 0]
 
-# Bỏ cột Description
+# Drop the 'Description' column
 df_Transaction = df_Transaction.drop(columns=['Description'])
 
-# Loại bỏ các dòng thiếu CustomerID
+# Remove rows with missing CustomerID
 df_Transaction = df_Transaction.dropna(subset=['CustomerID'])
 
-# Kiểm tra dupicates
+# Check for duplicates
 print('Duplicate entries: {}'.format(df_Transaction.duplicated().sum()))
 print('{}% rows are duplicate.'.format(round((df_Transaction.duplicated().sum()/df_Transaction.shape[0])*100),2))
 
-# Bỏ duplicate data
-df_Transaction.drop_duplicates(inplace = True)
+# Drop duplicate data
+df_Transaction.drop_duplicates(inplace=True)
 
-# Đổi kiểu dữ liệu cho CustomerID và InvoiceDate
-df_Transaction['CustomerID'] = df_Transaction['CustomerID'].astype(str)  # Chuyển CustomerID sang kiểu object
-data['InvoiceDate'] = pd.to_datetime(data['InvoiceDate'], format='%d/%m/%Y %H:%M') #Chuyển InvoiceDate sang datetime
+# Change data type for CustomerID and InvoiceDate
+df_Transaction['CustomerID'] = df_Transaction['CustomerID'].astype(str)  # Convert CustomerID to object type
+data['InvoiceDate'] = pd.to_datetime(data['InvoiceDate'], format='%d/%m/%Y %H:%M')  # Convert InvoiceDate to datetime
 
-# Xóa UnitPrice và Quantity âm
+# Remove negative UnitPrice and Quantity
 df_Transaction = df_Transaction[(df_Transaction['UnitPrice'] > 0) & (df_Transaction['Quantity'] > 0)]
 
-# Kiểm tra kết quả EDA
+# Check EDA results
 print(df_Transaction.head())
 print(df_Transaction.describe())
 print(df_Transaction.dtypes)
-     
-Duplicate entries: 5194
-1% rows are duplicate.
-  InvoiceNo StockCode  Quantity         InvoiceDate  UnitPrice CustomerID  \
-0    536365    85123A         6 2010-12-01 08:26:00       2.55    17850.0   
-1    536365     71053         6 2010-12-01 08:26:00       3.39    17850.0   
-2    536365    84406B         8 2010-12-01 08:26:00       2.75    17850.0   
-3    536365    84029G         6 2010-12-01 08:26:00       3.39    17850.0   
-4    536365    84029E         6 2010-12-01 08:26:00       3.39    17850.0   
-
-          Country  order_cancelled  
-0  United Kingdom                0  
-1  United Kingdom                0  
-2  United Kingdom                0  
-3  United Kingdom                0  
-4  United Kingdom                0  
-            Quantity                    InvoiceDate      UnitPrice  \
-count  392690.000000                         392690  392690.000000   
-mean       13.118997  2011-07-10 19:12:51.826224128       3.125913   
-min         1.000000            2010-12-01 08:26:00       0.001000   
-25%         2.000000            2011-04-07 11:12:00       1.250000   
-50%         6.000000            2011-07-31 12:02:00       1.950000   
-75%        12.000000            2011-10-20 12:53:00       3.750000   
-max     80995.000000            2011-12-09 12:50:00    8142.750000   
-std       180.492710                            NaN      22.241892   
-
-       order_cancelled  
-count         392690.0  
-mean               0.0  
-min                0.0  
-25%                0.0  
-50%                0.0  
-75%                0.0  
-max                0.0  
-std                0.0  
-InvoiceNo                  object
-StockCode                  object
-Quantity                    int64
-InvoiceDate        datetime64[ns]
-UnitPrice                 float64
-CustomerID                 object
-Country                    object
-order_cancelled             int64
-dtype: object
 ```
-2️⃣ SQL/ Python Analysis 
 
-# **2. TÍNH RFM**
-***2.1. Tính RFM***
+![image](https://github.com/user-attachments/assets/4293ced4-5879-46b3-b8d1-92583f314937)
+
+2️⃣ **2. Calculate RFM**  
+
+***2.1. Calculate RFM***
+
+
 ```python
-df_rmf = df_Transaction.groupby('CustomerID').agg({'InvoiceDate': lambda x: (last_date - x.max()).days, 'InvoiceNo': lambda x: len(x), 'Revenue': lambda x: x.sum()}).reset_index()
-df_rmf['InvoiceDate'] = df_rmf['InvoiceDate'].astype(int)
+# Create Revenue column
+df_Transaction['Revenue'] = df_Transaction['UnitPrice'] * df_Transaction['Quantity']
+```
+
+⭐ In RFM, Recency (R) measures the time elapsed since a customer's last transaction until the present.  
+➡️  Since the dataset only includes transactions up to the latest recorded date, we set last_date as the following day to avoid a zero gap when calculating Recency.   
+
+```python
+# To display only the date in InvoiceDate
+from datetime import datetime
+df_Transaction["InvoiceDate"] = df_Transaction["InvoiceDate"].dt.date
+
+import datetime as dt
+last_date = max(df_Transaction.InvoiceDate) + dt.timedelta(days=1)
+```
+
+
+```python
+df_rfm = df_Transaction.groupby('CustomerID').agg({'InvoiceDate': lambda x: (last_date - x.max()).days, 'InvoiceNo': lambda x: len(x), 'Revenue': lambda x: x.sum()}).reset_index()
+df_rfm['InvoiceDate'] = df_rfm['InvoiceDate'].astype(int)
 
 # Rename columns
-df_rmf.rename(columns={'InvoiceDate': 'Recency',
+df_rfm.rename(columns={'InvoiceDate': 'Recency',
                          'InvoiceNo': 'Frequency',
                          'Revenue': 'Monetary'}, inplace=True)
-df_rmf.head()
+df_rfm.head()
 ```
 
 <p align="center">
@@ -288,17 +321,17 @@ df_rmf.head()
 </p>
 
 
-***2.2. Tính RFM Score***
+***2.2. Calculate RFM Score***
 ```python
-# Tính điểm Recency (R), Frequency (F), Monetary (M)
+# Calculate Recency (R), Frequency (F), and Monetary (M) scores
 df_rmf['R_Score'] = pd.qcut(df_rmf['Recency'], 5, labels=[5, 4, 3, 2, 1])
 df_rmf['F_Score'] = pd.qcut(df_rmf['Frequency'], 5, labels=[1, 2, 3, 4, 5])
 df_rmf['M_Score'] = pd.qcut(df_rmf['Monetary'], 5, labels=[1, 2, 3, 4, 5])
 
-# Kết hợp các điểm df_rmf thành một chuỗi
+# Combine R, F, and M scores into a single string
 df_rmf['RFM_Score'] = df_rmf['R_Score'].astype(str) + df_rmf['F_Score'].astype(str) + df_rmf['M_Score'].astype(str)
 
-# Kết quả là DataFrame với các cột R_Score, F_Score, M_Score, và df_rmf_Score
+# The result is a DataFrame containing columns R_Score, F_Score, M_Score, and RFM_Score
 print(df_rmf[['CustomerID', 'Recency', 'Frequency', 'Monetary', 'RFM_Score']])
 ```
 <p align="center">
@@ -308,19 +341,47 @@ print(df_rmf[['CustomerID', 'Recency', 'Frequency', 'Monetary', 'RFM_Score']])
 
 # **3. Segmentation**
 ```python
-# Tính số lượng khách hàng trong mỗi segment
-df_describe = df_user.groupby('Segment').agg({'CustomerID': lambda x: len(x)}).reset_index()
+# Calculate the number of customers in each segment.
+df_segment_data = df_user.groupby('Segment').agg({'CustomerID': lambda x: len(x),
+                                                   'Recency': lambda x: x.mean(),
+                                                   'Frequency': lambda x: x.sum(),
+                                                   'Monetary': lambda x: x.sum()}).reset_index()
 
-df_describe.rename(columns={'CustomerID': 'Count'}, inplace=True)
-df_describe['percent'] = (df_describe['Count'] / df_describe['Count'].sum()) * 100
-df_describe['percent'] = df_describe['percent'].round(1)
+df_segment_data.rename(columns={'CustomerID': 'Count'}, inplace=True)
+df_segment_data['percent'] = (df_segment_data['Count'] / df_segment_data['Count'].sum()) * 100
+df_segment_data['percent'] = df_segment_data['percent'].round(1)
 
-print(df_describe)
+# Rename columns after calculating the aggregations
+df_segment_data.rename(columns={'Recency': 'Avg Recency', 
+                                 'Frequency': 'Orders', 
+                                 'Monetary': 'Sales'}, inplace=True)
+
+df_segment_data['Avg Recency'] = df_segment_data['Avg Recency'].round(1)
+df_segment_data['Avg orders'] = (df_segment_data['Orders'] / df_segment_data['Count']).round(1) # Use 'Count' instead of 'Number of Customers'
+df_segment_data['Avg sales'] = (df_segment_data['Sales'] / df_segment_data['Count']).round(1)  # Use 'Count' instead of 'Number of Customers'
+
+print(df_segment_data)
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f5cb947d-934f-40ac-a0ec-fb456f93eb66" alt="image">
+  <img src="https://github.com/user-attachments/assets/f50c0866-f6d0-4308-bd63-8933caf2894e" alt="image">
 </p>
+
+**Customers share by Segment**
+
+<p align="center">
+  <img src="![image](https://github.com/user-attachments/assets/9c9582cb-633e-4635-b0dc-1cb397de7780)
+" alt="image">
+</p>
+
+**Sales share by Segment**  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fb5d3852-f3aa-4b2a-8c98-96d5b3046a11" alt="image">
+</p>
+
+**Average orders per customer by Segment**  
+
+
 
 
 | **Segment**             | **Characteristics**                                                                           | **Recommendations**                                                                                     |
